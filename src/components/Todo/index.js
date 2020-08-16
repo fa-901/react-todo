@@ -40,7 +40,18 @@ export default function Todo(props) {
         listUpdate(c);
     }
 
-    let todoList = list.map((v, i) => {
+    let todoList = list.filter((v) => {
+        switch (showType) {
+            case 'All':
+                return true;
+            case 'checked':
+                return v.checked === true;
+            case 'unchecked':
+                return v.checked === false;
+            default:
+                return true;
+        }
+    }).map((v, i) => {
         return (
             <TodoItem
                 i={i}
