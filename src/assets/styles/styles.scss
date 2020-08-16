@@ -21,18 +21,3 @@ body,
 .app {
 	height: 100%;
 }
-
-.custom-switch .custom-control-label::after {
-	content: 'x';
-	line-height: 0.9rem;
-	text-align: center;
-	top: 0.2rem;
-    left: -2.25rem;
-    width: 1.3rem;
-	height: 1.3rem;
-    border-radius: 50%;
-}
-
-.custom-switch .custom-control-label::before {
-	width: 2.25rem;
-}
