@@ -40,18 +40,7 @@ export default function Todo(props) {
         listUpdate(c);
     }
 
-    let todoList = list.filter((v) => {
-        switch (showType) {
-            case 'All':
-                return true;
-            case 'checked':
-                return v.checked === true;
-            case 'unchecked':
-                return v.checked === false;
-            default:
-                return true;
-        }
-    }).map((v, i) => {
+    let todoList = list.map((v, i) => {
         return (
             <TodoItem
                 i={i}
@@ -63,6 +52,17 @@ export default function Todo(props) {
                 check={(c) => { check(c, i) }}
             />
         )
+    });
+
+    let displayList = todoList.filter((v) => {
+        switch (showType) {
+            case 'checked':
+                return v.props.checked === true;
+            case 'unchecked':
+                return v.props.checked === false;
+            default:
+                return true;
+        }
     });
 
     let listHelper = list.length > 0 && (<small className="form-text text-muted">Click on text to edit</small>);
@@ -97,7 +97,7 @@ export default function Todo(props) {
                 <small className="form-text text-muted">Press 'Enter' to insert</small>
             </div>
             <ul className="list-group">
-                {todoList}
+                {displayList}
             </ul>
             {listHelper}
             {btnGroup}
