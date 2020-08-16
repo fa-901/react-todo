@@ -13,6 +13,16 @@ body {
 .app-dark {
 	color: #fff;
 	background-color: #121212;
+
+	.form-control {
+		background-color: #333333;
+		border-color: lighten(#333333, 20%);
+		color: #fff;
+	}
+
+	.list-group-item {
+		background-color: #333333;
+	}
 }
 
 html,
