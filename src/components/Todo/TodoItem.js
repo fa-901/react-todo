@@ -40,7 +40,7 @@ export default function TodoItem(props) {
             ref={inputRef}
         />
     );
-    
+
     var label = (
         <div className='cursor-pointer' onClick={() => { toggleEdit(!isEdit) }} >
             {props.label}
@@ -58,18 +58,24 @@ export default function TodoItem(props) {
                 >
                     <i className='far fa-edit'></i>
                 </Button> */}
-                <div className='flex-grow-1 flex-shrink-0 ml-auto'>
+                {!isEdit && <div className='flex-grow-0 flex-shrink-0 pr-2 mr-2 border-right'>
+                    <div className="custom-control custom-checkbox">
+                        <input type="checkbox" className="custom-control-input" id={props.i} checked={props.checked} onChange={props.check} />
+                        <label className="custom-control-label" htmlFor={props.i}></label>
+                    </div>
+                </div>}
+                <div className='flex-grow-1 flex-shrink-0'>
                     {dislayItem}
                 </div>
-                <div className='flex-grow-0 flex-shrink-0 pl-2 border-left'>
-                    {!isEdit && <Button
+                {!isEdit && <div className='flex-grow-0 flex-shrink-0 pl-2 border-left'>
+                    <Button
                         className='btn btn-link padding-0'
                         onClick={props.deleteItem}
                         toolTip='Delete'
                     >
                         <i className='far fa-trash-alt'></i>
-                    </Button>}
-                </div>
+                    </Button>
+                </div>}
             </div>
         </li>
     )

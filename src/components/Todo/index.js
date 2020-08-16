@@ -32,16 +32,24 @@ export default function Todo(props) {
         listUpdate(c);
     }
 
+    function check(index) {
+    }
+
     let todoList = list.map((v, i) => {
         return (
             <TodoItem
+                i={i}
                 key={i}
                 label={v}
+                checked={false}
                 updateTask={(c) => { updateItem(c, i) }}
                 deleteItem={() => { deleteItem(i) }}
+                check={() => { check(i) }}
             />
         )
-    })
+    });
+
+    let listHelper = list.length > 0 && (<small className="form-text text-muted">Click on text to edit</small>);
 
     return (
         <Fragment>
@@ -58,6 +66,7 @@ export default function Todo(props) {
             <ul className="list-group">
                 {todoList}
             </ul>
+            {listHelper}
         </Fragment>
     )
 }
