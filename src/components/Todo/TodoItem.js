@@ -51,16 +51,9 @@ export default function TodoItem(props) {
     return (
         <li className="list-group-item">
             <div className='d-flex flex-row align-items-center'>
-                {/* <Button
-                    className='btn btn-link mr-2'
-                    onClick={() => { toggleEdit(!isEdit) }}
-                    toolTip='Edit'
-                >
-                    <i className='far fa-edit'></i>
-                </Button> */}
                 {!isEdit && <div className='flex-grow-0 flex-shrink-0 pr-2 mr-2 border-right'>
                     <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id={props.i} checked={props.checked} onChange={props.check} />
+                        <input type="checkbox" className="custom-control-input" id={props.i} checked={props.checked} onChange={() => { props.check(!props.checked) }} />
                         <label className="custom-control-label" htmlFor={props.i}></label>
                     </div>
                 </div>}

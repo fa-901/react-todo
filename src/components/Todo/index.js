@@ -15,14 +15,14 @@ export default function Todo(props) {
             return;
         }
         const c = [...list];
-        c.push(currentInput);
+        c.push({ label: currentInput, checked: false });
         listUpdate(c);
         inputUpdate('');
     }
 
     function updateItem(val, index) {
         const c = [...list];
-        c[index] = val;
+        c[index].label = val;
         listUpdate(c);
     }
 
@@ -32,7 +32,10 @@ export default function Todo(props) {
         listUpdate(c);
     }
 
-    function check(index) {
+    function check(val, index) {
+        const c = [...list];
+        c[index].checked = val;
+        listUpdate(c);
     }
 
     let todoList = list.map((v, i) => {
@@ -40,11 +43,11 @@ export default function Todo(props) {
             <TodoItem
                 i={i}
                 key={i}
-                label={v}
-                checked={false}
+                label={v.label}
+                checked={v.checked}
                 updateTask={(c) => { updateItem(c, i) }}
                 deleteItem={() => { deleteItem(i) }}
-                check={() => { check(i) }}
+                check={(c) => { check(c, i) }}
             />
         )
     });
