@@ -1,9 +1,11 @@
 import React, { Fragment, useState } from 'react';
+import types from './showTypes.json';
 import TodoItem from './TodoItem';
 
 export default function Todo(props) {
     const [currentInput, inputUpdate] = useState('');
     const [list, listUpdate] = useState([]);
+    const [showType, changeShow] = useState('All');
 
     function handleInput(e) {
         const { value } = e.currentTarget;
@@ -54,6 +56,23 @@ export default function Todo(props) {
 
     let listHelper = list.length > 0 && (<small className="form-text text-muted">Click on text to edit</small>);
 
+    let btnList = types.map((v) => {
+        return (
+            <button
+                key={v.value}
+                onClick={() => { changeShow(v.value) }}
+                className={`semi-bold btn btn-sm ${v.value === showType ? 'btn-primary' : 'btn-outline-primary'}`}>
+                {v.label}
+            </button>
+        )
+    });
+
+    let btnGroup = list.length > 0 && (
+        <div className="mt-4 btn-group btn-block">
+            {btnList}
+        </div>
+    );
+
     return (
         <Fragment>
             <div className="form-group">
@@ -70,6 +89,7 @@ export default function Todo(props) {
                 {todoList}
             </ul>
             {listHelper}
+            {btnGroup}
         </Fragment>
     )
 }
