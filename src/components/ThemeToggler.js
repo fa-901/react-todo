@@ -11,7 +11,7 @@ export default function Toggler(props) {
         <div className={`text-right`}>
             <div className="custom-control custom-switch">
                 <input type="checkbox" className="custom-control-input" id="customSwitch1" checked={isDark} onChange={() => { themeChange(!isDark) }} />
-                <label className="custom-control-label" htmlFor="customSwitch1">Switch Theme</label>
+                <label className="custom-control-label" htmlFor="customSwitch1">Toggle Theme</label>
             </div>
         </div>
     );

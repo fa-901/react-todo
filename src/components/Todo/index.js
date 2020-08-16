@@ -1,9 +1,11 @@
 import React, { Fragment, useState } from 'react';
+import types from './showTypes.json';
 import TodoItem from './TodoItem';
 
 export default function Todo(props) {
     const [currentInput, inputUpdate] = useState('');
     const [list, listUpdate] = useState([]);
+    const [showType, changeShow] = useState('All');
 
     function handleInput(e) {
         const { value } = e.currentTarget;
@@ -52,7 +54,35 @@ export default function Todo(props) {
         )
     });
 
+    let displayList = todoList.filter((v) => {
+        switch (showType) {
+            case 'checked':
+                return v.props.checked === true;
+            case 'unchecked':
+                return v.props.checked === false;
+            default:
+                return true;
+        }
+    });
+
     let listHelper = list.length > 0 && (<small className="form-text text-muted">Click on text to edit</small>);
+
+    let btnList = types.map((v) => {
+        return (
+            <button
+                key={v.value}
+                onClick={() => { changeShow(v.value) }}
+                className={`semi-bold btn btn-sm ${v.value === showType ? 'btn-primary' : 'btn-outline-primary'}`}>
+                {v.label}
+            </button>
+        )
+    });
+
+    let btnGroup = list.length > 0 && (
+        <div className="mt-4 btn-group btn-block">
+            {btnList}
+        </div>
+    );
 
     return (
         <Fragment>
@@ -67,9 +97,10 @@ export default function Todo(props) {
                 <small className="form-text text-muted">Press 'Enter' to insert</small>
             </div>
             <ul className="list-group">
-                {todoList}
+                {displayList}
             </ul>
             {listHelper}
+            {btnGroup}
         </Fragment>
     )
 }
