@@ -39,28 +39,36 @@ export default function TodoItem(props) {
             onBlur={updateTask}
             ref={inputRef}
         />
-    )
-    var dislayItem = isEdit ? editBox : props.label;
+    );
+
+    var label = (
+        <div className='cursor-pointer' onClick={() => { toggleEdit(!isEdit) }} >
+            {props.label}
+        </div>
+    );
+
+    var dislayItem = isEdit ? editBox : label;
     return (
         <li className="list-group-item">
             <div className='d-flex flex-row align-items-center'>
-                <Button
-                    className='btn btn-link mr-2'
-                    onClick={() => { toggleEdit(!isEdit) }}
-                    toolTip='Edit'
-                >
-                    <i className='far fa-edit'></i>
-                </Button>
-                <div>
+                {!isEdit && <div className='flex-grow-0 flex-shrink-0 pr-2 mr-2 border-right'>
+                    <div className="custom-control custom-checkbox">
+                        <input type="checkbox" className="custom-control-input" id={props.i} checked={props.checked} onChange={() => { props.check(!props.checked) }} />
+                        <label className="custom-control-label" htmlFor={props.i}></label>
+                    </div>
+                </div>}
+                <div className='flex-grow-1 flex-shrink-0'>
                     {dislayItem}
                 </div>
-                {!isEdit && <Button
-                    className='btn btn-link ml-auto'
-                    onClick={props.deleteItem}
-                    toolTip='Delete'
-                >
-                    <i className='far fa-trash-alt'></i>
-                </Button>}
+                {!isEdit && <div className='flex-grow-0 flex-shrink-0 pl-2 border-left'>
+                    <Button
+                        className='btn btn-link padding-0'
+                        onClick={props.deleteItem}
+                        toolTip='Delete'
+                    >
+                        <i className='far fa-trash-alt'></i>
+                    </Button>
+                </div>}
             </div>
         </li>
     )

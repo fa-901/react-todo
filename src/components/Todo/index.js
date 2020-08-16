@@ -15,14 +15,14 @@ export default function Todo(props) {
             return;
         }
         const c = [...list];
-        c.push(currentInput);
+        c.push({ label: currentInput, checked: false });
         listUpdate(c);
         inputUpdate('');
     }
 
     function updateItem(val, index) {
         const c = [...list];
-        c[index] = val;
+        c[index].label = val;
         listUpdate(c);
     }
 
@@ -32,16 +32,27 @@ export default function Todo(props) {
         listUpdate(c);
     }
 
+    function check(val, index) {
+        const c = [...list];
+        c[index].checked = val;
+        listUpdate(c);
+    }
+
     let todoList = list.map((v, i) => {
         return (
             <TodoItem
+                i={i}
                 key={i}
-                label={v}
+                label={v.label}
+                checked={v.checked}
                 updateTask={(c) => { updateItem(c, i) }}
                 deleteItem={() => { deleteItem(i) }}
+                check={(c) => { check(c, i) }}
             />
         )
-    })
+    });
+
+    let listHelper = list.length > 0 && (<small className="form-text text-muted">Click on text to edit</small>);
 
     return (
         <Fragment>
@@ -58,6 +69,7 @@ export default function Todo(props) {
             <ul className="list-group">
                 {todoList}
             </ul>
+            {listHelper}
         </Fragment>
     )
 }
