@@ -42,7 +42,7 @@ export default function TodoItem(props) {
     );
 
     var label = (
-        <div className='cursor-pointer' onClick={() => { toggleEdit(!isEdit) }} >
+        <div className={`cursor-pointer ${props.checked && 'complete'}`} onClick={() => { toggleEdit(!isEdit) }} >
             {props.label}
         </div>
     );

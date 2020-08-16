@@ -33,3 +33,8 @@ body,
 .custom-control-label {
 	cursor: pointer;
 }
+
+.complete {
+	text-decoration: line-through;
+	color: #666666;
+}
