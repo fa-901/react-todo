@@ -32,6 +32,10 @@ body,
 	height: 100%;
 }
 
+.app {
+	overflow-y: auto;
+}
+
 .cursor-pointer {
 	cursor: pointer;
 }

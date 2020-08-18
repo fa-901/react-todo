@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import types from './showTypes.json';
 import TodoItem from './TodoItem';
 
@@ -7,9 +7,22 @@ export default function Todo(props) {
     const [list, listUpdate] = useState([]);
     const [showType, changeShow] = useState('All');
 
+    useEffect(() => {
+        if (typeof (Storage) !== "undefined") {
+            let data = localStorage.getItem("list");
+            data = data ? JSON.parse(data) : [];
+            listUpdate(data);
+        }
+    }, []);
+
     function handleInput(e) {
         const { value } = e.currentTarget;
         inputUpdate(value);
+    }
+
+    function updateFn(e) {
+        listUpdate(e);
+        localStorage.setItem("list", JSON.stringify(e));
     }
 
     function handleKeyDown(e) {
@@ -18,26 +31,26 @@ export default function Todo(props) {
         }
         const c = [...list];
         c.push({ label: currentInput, checked: false });
-        listUpdate(c);
+        updateFn(c);
         inputUpdate('');
     }
 
     function updateItem(val, index) {
         const c = [...list];
         c[index].label = val;
-        listUpdate(c);
+        updateFn(c);
     }
 
     function deleteItem(index) {
         const c = [...list];
         c.splice(index, 1);
-        listUpdate(c);
+        updateFn(c);
     }
 
     function check(val, index) {
         const c = [...list];
         c[index].checked = val;
-        listUpdate(c);
+        updateFn(c);
     }
 
     let todoList = list.map((v, i) => {
